@@ -1,0 +1,15 @@
+root = true
+
+# All files
+[*]
+indent_style = space
+indent_size = 2
+
+# File encoding
+[*]
+charset = utf-8
+
+# End of line
+[*]
+end_of_line = crlf
+insert_final_newline = true
