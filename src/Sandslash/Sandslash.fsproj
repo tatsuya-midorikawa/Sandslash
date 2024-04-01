@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -19,7 +19,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup />
+
   <ItemGroup>
+		<Compile Include="String.fs" />
 		<None Include="..\..\assets\sandslash.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
