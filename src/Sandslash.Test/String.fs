@@ -1,4 +1,4 @@
-namespace Sandslash.Test
+﻿namespace Sandslash.Test
 
 open Sandslash
 open Xunit
@@ -14,4 +14,31 @@ type ``String Test`` (Console: ITestOutputHelper) =
         Console.WriteLine($"actual: {actual}, expected: {expected}")
         Assert.Equal(expected, actual))
         actual
+        
 
+  [<Fact>]
+  member __.slice()=
+    let actual = "abcdef" |> String.slice (0, 0)
+    let expected = ""
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+
+    let actual = "abcdef" |> String.slice (0, 1)
+    let expected = "a"
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+
+    let actual = "abcdef" |> String.slice (1, 3)
+    let expected = "bcd"
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = "abcdef" |> String.slice (8, 3)
+    let expected = ""
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Fact>]
+  member __.sandbox()=
+    let s = "abcdef"
+    Console.WriteLine(s |> String.slice (0, 0))
+    Assert.True(true)
