@@ -1,4 +1,4 @@
-﻿![sandslash.png]()
+﻿![img](./assets/sandslash.png)
 
 # Sandslash
 
