@@ -1,8 +1,12 @@
 ﻿namespace Sandslash.Test
 
 open Sandslash
+open System
 open Xunit
 open Xunit.Abstractions
+open Microsoft.FSharp.NativeInterop
+
+#nowarn "9"
 
 type ``String Test`` (Console: ITestOutputHelper) =
   [<Fact>]
@@ -41,5 +45,10 @@ type ``String Test`` (Console: ITestOutputHelper) =
   [<Fact>]
   member __.sandbox()=
     let s = "abcdef"
+    let cs = s.ToCharArray().AsSpan()
+    let p = NativePtr.stackalloc<char> s.Length |> NativePtr.toVoidPtr
+    let cs' = Span<char> (p, s.Length)
+    s.CopyTo(cs')
+    
     Console.WriteLine(s |> String.slice (0, 0))
     Assert.True(true)
