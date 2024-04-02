@@ -18,21 +18,22 @@ type ``String Test`` (Console: ITestOutputHelper) =
 
   [<Fact>]
   member __.slice()=
-    let actual = "abcdef" |> String.slice (0, 0)
-    let expected = ""
+    let src = "abcdef"
+    let actual = src |> String.slice (0, 0)
+    let expected = src[0..0]
     Console.WriteLine($"actual: {actual}, expected: {expected}")
 
-    let actual = "abcdef" |> String.slice (0, 1)
-    let expected = "a"
+    let actual = src |> String.slice (0, 1)
+    let expected = src[0..1]
     Console.WriteLine($"actual: {actual}, expected: {expected}")
 
-    let actual = "abcdef" |> String.slice (1, 3)
-    let expected = "bcd"
+    let actual = src |> String.slice (1, 3)
+    let expected = src[1..3]
     Console.WriteLine($"actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
-    let actual = "abcdef" |> String.slice (8, 3)
-    let expected = ""
+    let actual = src |> String.slice (8, 3)
+    let expected = src[8..3]
     Console.WriteLine($"actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
