@@ -29,5 +29,7 @@ module Array =
     acc
   let inline chunk (size: int) (array: array<^T>) = array.Chunk(size).ToArray()
   let inline reverse (array: array<^T>) = array.Reverse().ToArray()
+  let inline zip (array2: array<^T2>) (array1: array<^T1>) = array1.Zip(array2).ToArray()
+  let inline zip3 (array3: array<^T3>) (array2: array<^T2>) (array1: array<^T1>) = array1.Zip(array2, array3).ToArray()
 
   let inline asSpan (array: array<^T>) = System.MemoryExtensions.AsSpan(array)
