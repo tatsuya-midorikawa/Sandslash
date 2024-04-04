@@ -19,4 +19,4 @@ module String =
   let inline indexOf (value: string) (s: string) = if isEmpty s then -1 else s.IndexOf(value)
   let inline substring (startIndex: int, length: int) (s: string) = if isEmpty s then null else s.Substring(startIndex, length)
   let inline substringFrom (startIndex: int) (s: string) = if isEmpty s then null else s.Substring(startIndex)
-  let inline asSpan (s: string) = if isEmpty s then Span<char>() else s.ToCharArray().AsSpan()
+  let inline asSpan (s: string) = s.AsSpan()
