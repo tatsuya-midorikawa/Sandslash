@@ -4,6 +4,7 @@ open System
 
 module String =
   let inline isEmpty (s: string) = System.String.IsNullOrEmpty(s)
+  let inline isEmptyOrWhiteSpace (s: string) = System.String.IsNullOrWhiteSpace(s)
   let inline upcase (s: string) = if isEmpty s then null else s.ToUpperInvariant()
   let inline downcase (s: string) = if isEmpty s then null else s.ToLowerInvariant()
   let inline capitalize (s: string) = if isEmpty s then null else $"{s.Substring(0, 1).ToUpperInvariant()}{s.Substring(1).ToLowerInvariant()}"

@@ -9,6 +9,48 @@ open Microsoft.FSharp.NativeInterop
 #nowarn "9"
 
 type ``String Test`` (Console: ITestOutputHelper) =
+  [<Theory>]
+  [<InlineData ("", true)>]
+  [<InlineData (" ", false)>]
+  [<InlineData (null, true)>]
+  [<InlineData ("a", false)>]
+  member __.isEmpty(src, expected)=
+    let actual = String.isEmpty src
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData ("", true)>]
+  [<InlineData (" ", true)>]
+  [<InlineData (null, true)>]
+  [<InlineData ("a", false)>]
+  member __.isEmptyOrWhiteSpace(src, expected)=
+    let actual = String.isEmptyOrWhiteSpace src
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+    
+
+  [<Theory>]
+  [<InlineData ("aAa")>]
+  [<InlineData ("Aあa")>]
+  member __.upcase(src: string)=
+    let actual = String.upcase src
+    let expected = src.ToUpperInvariant()
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+  
+  [<Theory>]
+  [<InlineData ("AaA")>]
+  [<InlineData ("aあA")>]
+  member __.downcase(src: string)=
+    let actual = String.downcase src
+    let expected = src.ToLowerInvariant()
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
   [<Fact>]
   member __.split() =
     let actual = String.split "aaa\nbbb\rccc ddd\r\neee"
