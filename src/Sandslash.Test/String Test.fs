@@ -51,6 +51,16 @@ type ``String Test`` (Console: ITestOutputHelper) =
     Assert.Equal(expected, actual)
 
 
+  [<Theory>]
+  [<InlineData ("aAa", "Aaa")>]
+  [<InlineData ("aあa", "Aあa")>]
+  [<InlineData ("あaa", "あaa")>]
+  member __.capitalize(src, expected)=
+    let actual = String.capitalize src
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
   [<Fact>]
   member __.split() =
     let actual = String.split "aaa\nbbb\rccc ddd\r\neee"
@@ -72,6 +82,16 @@ type ``String Test`` (Console: ITestOutputHelper) =
     let src = "abcdef"
     let actual = src |> String.slice (starti, endi)
     let expected = src[starti..endi]
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData ("a", "b", "abc")>]
+  [<InlineData ("a", "b", "")>]
+  member __.replace(oldValue, newValue, src)=
+    let actual = src |> String.replace (oldValue, newValue)
+    let expected = src.Replace(oldValue, newValue)
     Console.WriteLine($"actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
