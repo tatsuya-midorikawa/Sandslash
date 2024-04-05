@@ -96,6 +96,86 @@ type ``String Test`` (Console: ITestOutputHelper) =
     Assert.Equal(expected, actual)
 
 
+  [<Theory>]
+  [<InlineData (5, 'a', "abc")>]
+  [<InlineData (2, 'a', "abc")>]
+  [<InlineData (1, 'a', "abc")>]
+  [<InlineData (0, 'a', "abc")>]
+  member __.padl(totalWidth, paddingChar, src)=
+    let actual = src |> String.padl (totalWidth, paddingChar)
+    let expected = src.PadLeft(totalWidth, paddingChar)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData (5, 'a', "abc")>]
+  [<InlineData (2, 'a', "abc")>]
+  [<InlineData (1, 'a', "abc")>]
+  [<InlineData (0, 'a', "abc")>]
+  member __.padr(totalWidth, paddingChar, src)=
+    let actual = src |> String.padr (totalWidth, paddingChar)
+    let expected = src.PadRight(totalWidth, paddingChar)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData (1, 1, "abc")>]
+  [<InlineData (1, 2, "abc")>]
+  [<InlineData (0, 1, "abc")>]
+  [<InlineData (0, 0, "abc")>]
+  member __.remove(startIndex, count, src)=
+    let actual = src |> String.remove (startIndex, count)
+    let expected = src.Remove(startIndex, count)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData (1, "abc")>]
+  [<InlineData (0, "abc")>]
+  member __.removeAfter(startIndex, src)=
+    let actual = src |> String.removeAfter startIndex
+    let expected = src.Remove(startIndex)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData ("bc", "abc")>]
+  [<InlineData ("bc", "abcabc")>]
+  [<InlineData ("bc", "abcabcabc")>]
+  [<InlineData ("bc", "abcabcabcabc")>]
+  member __.indexOf(value, src)=
+    let actual = src |> String.indexOf value
+    let expected = src.IndexOf(value)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData (1, 1, "abc")>]
+  [<InlineData (1, 2, "abc")>]
+  [<InlineData (0, 1, "abc")>]
+  [<InlineData (0, 0, "abc")>]
+  member __.substring(startIndex, length, src)=
+    let actual = src |> String.substring (startIndex, length)
+    let expected = src.Substring(startIndex, length)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Theory>]
+  [<InlineData (1, "abc")>]
+  [<InlineData (0, "abc")>]
+  member __.substringFrom(startIndex, src)=
+    let actual = src |> String.substringFrom startIndex
+    let expected = src.Substring(startIndex)
+    Console.WriteLine($"actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
   [<Fact>]
   member __.sandbox()=
     let s = "abcdef"
