@@ -11,7 +11,7 @@
     <Company>midoliy</Company>
     <Copyright>© 2024 Tatsuya Midorikawa. All rights rserved</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageTags>midoliy,Linq,fsharp,Funtom</PackageTags>
+    <PackageTags>fsharp,hedgehog,sandslash,module,midoliy</PackageTags>
     <PackageProjectUrl>https://github.com/tatsuya-midorikawa/Sandslash</PackageProjectUrl>
     <RepositoryUrl>https://github.com/tatsuya-midorikawa/Sandslash</RepositoryUrl>
     <Description>
