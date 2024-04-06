@@ -11,19 +11,16 @@ module Array =
     checkNonNull "array" array
     let len = array.Length
     let rec loop i =
-        i >= len || (predicate array.[i] && loop (i + 1))
+        i >= len || (predicate array[i] && loop (i + 1))
     loop 0
 
   let inline exists ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) =
     checkNonNull "array" array
-    let mutable state = false
-    let mutable i = 0
+    let len = array.Length
+    let rec loop i =
+      predicate array[i] || (i < len && loop (i + 1))
 
-    while not state && i < array.Length do
-        state <- predicate array.[i]
-        i <- i + 1
-
-    state
+    loop 0
 
   let inline contains (value: ^T) (array: array<^T>) = array.Contains(value)
   let inline count ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) = array.Count(predicate)
