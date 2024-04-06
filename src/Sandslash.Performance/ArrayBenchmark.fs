@@ -20,6 +20,6 @@ type ArrayBenchmark() =
     array |> Sandslash.Array.exists (fun x -> x % 2 = 0)    
 
   [<Benchmark>]
-  member __.FSharp_Collections_Array_any ()=
+  member __.FSharp_Collections_Array_exists ()=
     array |> FSharp.Collections.Array.exists (fun x -> x % 2 = 0)
 

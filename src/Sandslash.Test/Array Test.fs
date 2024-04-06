@@ -12,9 +12,9 @@ type ``Array Test`` (Console: ITestOutputHelper) =
 
   [<Fact>]
   member __.sandbox()=
-    let s = [| 1; 1; 1; |]
-    let actual = s |> Sandslash.Array.forall (fun n -> n = 1)
-    let expected = s |> FSharp.Collections.Array.forall (fun n -> n = 1)
+    let s = [| 3; 2; 1 |]
+    let actual = s |> Sandslash.Array.exists (fun n -> n = 1)
+    let expected = s |> FSharp.Collections.Array.exists (fun n -> n = 1)
 
     Console.WriteLine($"actual: {actual}, expected: {expected}")
 
