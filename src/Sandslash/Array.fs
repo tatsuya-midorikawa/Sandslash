@@ -16,12 +16,22 @@ module Array =
 
   let inline exists ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) =
     checkNonNull "array" array
+    let mutable state = false
+    let mutable i = 0
+
+    while not state && i < array.Length do
+        state <- predicate array[i]
+        i <- i + 1
+
+    state
+
+  let inline contains (value: ^T) (array: array<^T>) =    
+    checkNonNull "array" array
     let rec loop i =
-      predicate array[i] || (i < array.Length && loop (i + 1))
+      (i < array.Length) && (array[i] = value || loop (i + 1))
+    loop 0
 
-    if 0 < array.Length then loop 0 else false
 
-  let inline contains (value: ^T) (array: array<^T>) = array.Contains(value)
   let inline count ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) = array.Count(predicate)
   let inline distinct (array: array<^T>) = array.Distinct().ToArray()
   let inline distinctBy ([<InlineIfLambda>]selector: ^T -> ^U) (array: array<^T>) = array.DistinctBy(selector).ToArray()
