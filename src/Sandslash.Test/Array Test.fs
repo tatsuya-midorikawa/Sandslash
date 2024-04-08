@@ -11,7 +11,48 @@ open Microsoft.FSharp.NativeInterop
 type ``Array Test`` (Console: ITestOutputHelper) =
   
   [<Fact>]
-  member __.contains2()=
+  member __.forall () =
+    let empty = [||]
+    let actual = empty |> Sandslash.Array.forall (fun n -> n > 0)
+    let expected = empty |> FSharp.Collections.Array.forall (fun n -> n > 0)
+    Console.WriteLine($"0) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let data = [| 1..10|]
+    let actual = data |> Sandslash.Array.forall (fun n -> n > 0)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n > 0)
+    Console.WriteLine($"1) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.forall (fun n -> n > 1)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n > 1)
+    Console.WriteLine($"2) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.forall (fun n -> n > 10)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n > 10)
+    Console.WriteLine($"3) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let data = [| -10..2..10|]
+    let actual = data |> Sandslash.Array.forall (fun n -> n < 0)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n < 0)
+    Console.WriteLine($"4) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.forall (fun n -> n < -11)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n < -11)
+    Console.WriteLine($"5) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.forall (fun n -> n >= -10)
+    let expected = data |> FSharp.Collections.Array.forall (fun n -> n >= -10)
+    Console.WriteLine($"6) actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+
+  [<Fact>]
+  member __.contains()=
     let empty = [||]
     let actual = empty |> Sandslash.Array.contains 1
     let expected = empty |> FSharp.Collections.Array.contains 1
