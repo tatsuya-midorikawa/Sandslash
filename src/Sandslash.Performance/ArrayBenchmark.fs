@@ -5,20 +5,20 @@ open Bogus
 
 type ArrayBenchmark() =
   let fake = Faker()
-  let array = [| for _ in 1..10_000 do fake.Random.Int() |]
+  let array = [| for _ in 1..100_000 do fake.Random.Int() |]
   let value = fake.Random.Int()
 
   [<Benchmark>]
   member __.Sandslash_Array_forall () =
-    array |> Sandslash.Array.forall (fun x -> x % 2 = 0)
+   array |> Sandslash.Array.forall (fun x -> x % 2 = 0)
 
   [<Benchmark>]
   member __.FSharp_Collections_Array_forall ()=
-    array |> FSharp.Collections.Array.forall (fun x -> x % 2 = 0)
+   array |> FSharp.Collections.Array.forall (fun x -> x % 2 = 0)
 
   [<Benchmark>]
   member __.Sandslash_Array_exists ()=
-    array |> Sandslash.Array.exists (fun x -> x % 2 = 0)      
+    array |> Sandslash.Array.exists (fun x -> x % 2 = 0)
 
   [<Benchmark>]
   member __.FSharp_Collections_Array_exists ()=
@@ -26,8 +26,16 @@ type ArrayBenchmark() =
 
   [<Benchmark>]
   member __.Sandslash_Array_contains ()=
-    array |> Sandslash.Array.contains value
+   array |> Sandslash.Array.contains value
 
   [<Benchmark>]
   member __.FSharp_Collections_Array_contains ()=
-    array |> FSharp.Collections.Array.contains value
+   array |> FSharp.Collections.Array.contains value
+
+  [<Benchmark>]
+  member __.Sandslash_Array_countBy ()=
+   array |> Sandslash.Array.countBy (fun x -> x % 2 = 0)
+
+  [<Benchmark>]
+  member __.FSharp_Collections_Array_countBy ()=
+   array |> FSharp.Collections.Array.countBy (fun x -> x % 2 = 0)
