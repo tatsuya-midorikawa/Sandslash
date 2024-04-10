@@ -4,9 +4,9 @@ open System
 open System.Linq
 
 module Array =
-  
+
   let inline checkNonNull argName arg =
-      if isNull arg then nullArg argName
+    if isNull arg then nullArg argName
 
   let inline forall ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) =
     checkNonNull "array" array
@@ -28,8 +28,13 @@ module Array =
     loop 0
 
   let inline countBy ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) =
-    let r = array.Count(predicate)
-    [| (false, array.Length - r); (true, r) |]
+    if array.Length = 0
+      then [||]
+      else
+        match array.Count(predicate) with
+          | 0 -> [| (false, array.Length) |]
+          | n when n = array.Length -> [| (true, n) |]
+          | n -> [| (false, array.Length - n); (true, n) |]
 
   let inline distinct (array: array<^T>) = array.Distinct().ToArray()
   let inline distinctBy ([<InlineIfLambda>]selector: ^T -> ^U) (array: array<^T>) = array.DistinctBy(selector).ToArray()

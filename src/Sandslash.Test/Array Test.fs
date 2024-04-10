@@ -50,6 +50,34 @@ type ``Array Test`` (Console: ITestOutputHelper) =
     Console.WriteLine($"6) actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
+  [<Fact>]
+  member __.exists()=
+    let empty = [||]
+    let actual = empty |> Sandslash.Array.exists (fun n -> n = 1)
+    let expected = empty |> FSharp.Collections.Array.exists (fun n -> n = 1)
+    Console.WriteLine($"empty -> actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+    
+    let data = [| 1..10|]
+    let actual = data |> Sandslash.Array.exists (fun n -> n = 0)
+    let expected = data |> FSharp.Collections.Array.exists (fun n -> n = 0)
+    Console.WriteLine($"data(0) -> actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+   
+    let actual = data |> Sandslash.Array.exists (fun n -> n = 1)
+    let expected = data |> FSharp.Collections.Array.exists (fun n -> n = 1)
+    Console.WriteLine($"data(1) -> actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.exists (fun n -> n = 10)
+    let expected = data |> FSharp.Collections.Array.exists (fun n -> n = 10)
+    Console.WriteLine($"data(10) -> actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
+
+    let actual = data |> Sandslash.Array.exists (fun n -> n = 11)
+    let expected = data |> FSharp.Collections.Array.exists (fun n -> n = 11)
+    Console.WriteLine($"data(11) -> actual: {actual}, expected: {expected}")
+    Assert.Equal(expected, actual)
 
   [<Fact>]
   member __.contains()=
@@ -80,6 +108,34 @@ type ``Array Test`` (Console: ITestOutputHelper) =
     Console.WriteLine($"data(11) -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
+  [<Fact>]
+  member __.countBy()=
+    let empty = [||]
+    let actual = empty |> Sandslash.Array.countBy (fun n -> n = 1)
+    let expected = empty |> FSharp.Collections.Array.countBy (fun n -> n = 1)
+    Console.WriteLine($"empty -> actual: {actual.Length}, expected: {expected.Length}")
+    Assert.Equal(expected.Length, actual.Length)
+    
+    let data = [| 1..10|]
+    let actual = data |> Sandslash.Array.countBy (fun n -> n = 0)
+    let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 0)
+    Console.WriteLine($"data(0) -> actual: {actual.Length}, expected: {expected.Length}")
+    Assert.Equal(expected.Length, actual.Length)
+   
+    // let actual = data |> Sandslash.Array.countBy (fun n -> n = 1)
+    // let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 1)
+    // Console.WriteLine($"data(1) -> actual: {actual}, expected: {expected}")
+    // Assert.Equal(expected, actual)
+
+    // let actual = data |> Sandslash.Array.countBy (fun n -> n = 10)
+    // let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 10)
+    // Console.WriteLine($"data(10) -> actual: {actual}, expected: {expected}")
+    // Assert.Equal(expected, actual)
+
+    // let actual = data |> Sandslash.Array.countBy (fun n -> n = 11)
+    // let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 11)
+    // Console.WriteLine($"data(11) -> actual: {actual}, expected: {expected}")
+    // Assert.Equal(expected, actual)
 
   [<Fact>]
   member __.sandbox()=
