@@ -120,8 +120,13 @@ type ``Array Test`` (Console: ITestOutputHelper) =
     let actual = data |> Sandslash.Array.countBy (fun n -> n = 0)
     let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 0)
     Console.WriteLine($"data(0) -> actual: {actual.Length}, expected: {expected.Length}")
-    Assert.Equal(expected.Length, actual.Length)
-   
+    if actual.Length = expected.Length
+      then
+        for i = 0 to (actual.Length - 1) do
+          Assert.Equal(expected[i], actual[i])
+      else
+        Assert.Fail("actual.Length is not equal to expected.Length")
+
     // let actual = data |> Sandslash.Array.countBy (fun n -> n = 1)
     // let expected = data |> FSharp.Collections.Array.countBy (fun n -> n = 1)
     // Console.WriteLine($"data(1) -> actual: {actual}, expected: {expected}")
