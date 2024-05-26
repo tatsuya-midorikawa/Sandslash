@@ -34,7 +34,7 @@ module Array =
         match array.Count(predicate) with
           | 0 -> [| (false, array.Length) |]
           | n when n = array.Length -> [| (true, n) |]
-          | n -> [| (false, array.Length - n); (true, n) |]
+          | n -> [| (true, n); (false, array.Length - n); |]
 
   let inline distinct (array: array<^T>) = array.Distinct().ToArray()
   let inline distinctBy ([<InlineIfLambda>]selector: ^T -> ^U) (array: array<^T>) = array.DistinctBy(selector).ToArray()
