@@ -41,4 +41,8 @@
 		</None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Funtom.span" Version="0.0.5" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 ﻿namespace Sandslash
 
 open System
+open Funtom.span
 
 module String =
   let inline isEmpty (s: string) = System.String.IsNullOrEmpty(s)
@@ -21,3 +22,6 @@ module String =
   let inline substring (startIndex: int, length: int) (s: string) = if s = null then null else s.Substring(startIndex, length)
   let inline substringFrom (startIndex: int) (s: string) = if s = null then null else s.Substring(startIndex)
   let inline asSpan (s: string) = s.AsSpan()
+  let inline split_perf () =
+    
+    ()

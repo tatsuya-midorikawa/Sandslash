@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "version": "0.2.0",
+      "configurations": [
+        {
+          "name": ".NET Core Launch (Debug)",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "debug-build",
+          "program": "${workspaceFolder}/Sandslash/bin/Debug/net8.0/Sandslash.dll",
+          "args": [],
+          "cwd": "${workspaceFolder}",
+          "console": "internalConsole",
+          "stopAtEntry": false,
+          "internalConsoleOptions": "openOnSessionStart",
+          "externalConsole": true
+        },
+        {
+          "name": ".NET Core Launch (Relase)",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "release-build",
+          "program": "${workspaceFolder}/Sandslash/bin/Debug/net8.0/Sandslash.dll",
+          "args": [],
+          "cwd": "${workspaceFolder}",
+          "console": "internalConsole",
+          "stopAtEntry": false,
+          "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+          "name": ".NET Core Test",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "test-build",
+          "program": "${workspaceFolder}/Sandslash.Testt/bin/Debug/net8.0/Sandslash.Test.dll",
+          "args": [],
+          "cwd": "${workspaceFolder}",
+          "console": "internalConsole",
+          "stopAtEntry": false,
+          "internalConsoleOptions": "openOnSessionStart"
+        }
+      ]
+    }
+  ]
+}
