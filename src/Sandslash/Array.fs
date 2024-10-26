@@ -27,14 +27,17 @@ module Array =
       (i < array.Length) && (array[i] = value || loop (i + 1))
     loop 0
 
-  let inline countBy ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>) =
-    if array.Length = 0
-      then [||]
-      else
-        match array.Count(predicate) with
-          | 0 -> [| (false, array.Length) |]
-          | n when n = array.Length -> [| (true, n) |]
-          | n -> [| (true, n); (false, array.Length - n); |]
+  // Temporarily commented out because I misunderstood the behavior of Array.countBy
+  // see: https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-arraymodule.html#countBy
+  //
+  // let inline countBy ([<InlineIfLambda>]predicate: ^T -> bool) (array: array<^T>): ^U =
+  //   if array.Length = 0
+  //     then [||]
+  //     else
+  //       let mutable count = 0
+  //       for x in array do
+  //         if predicate x then count <- count + 1
+  //       [| (true, count); (false, array.Length - count) |]
 
   let inline distinct (array: array<^T>) = array.Distinct().ToArray()
   let inline distinctBy ([<InlineIfLambda>]selector: ^T -> ^U) (array: array<^T>) = array.DistinctBy(selector).ToArray()
@@ -53,7 +56,7 @@ module Array =
 
   let inline cast (src: array<^T>) = 
     let acc = Array.zeroCreate<^U>(src.Length)
-    for i in 0..src.Length-1 do
+    for i in 0..src.Length - 1 do
       acc.[i] <- (^U : (static member op_Implicit: ^T -> ^U) src.[i])
     acc
   let inline chunk (size: int) (array: array<^T>) = array.Chunk(size).ToArray()
