@@ -3,6 +3,7 @@
 open BenchmarkDotNet.Attributes
 open Bogus
 
+[<MemoryDiagnoser>]
 type ArrayBenchmark() =
   let fake = Faker()
   let array = [| for _ in 1..100_000 do fake.Random.Int() |]
@@ -42,13 +43,13 @@ type ArrayBenchmark() =
    array |> FSharp.Collections.Array.contains value
 
   
-  (* ******************
-    countBy
-   ****************** *)
-  [<Benchmark>]
-  member __.Sandslash_Array_countBy ()=
-   array |> Sandslash.Array.countBy (fun x -> x % 2 = 0)
-
-  [<Benchmark>]
-  member __.FSharp_Collections_Array_countBy ()=
-   array |> FSharp.Collections.Array.countBy (fun x -> x % 2 = 0)
+  // (* ******************
+  //   countBy
+  //  ****************** *)
+  // [<Benchmark>]
+  // member __.Sandslash_Array_countBy ()=
+  //  array |> Sandslash.Array.countBy (fun x -> x % 2 = 0)
+  //
+  // [<Benchmark>]
+  // member __.FSharp_Collections_Array_countBy ()=
+  //  array |> FSharp.Collections.Array.countBy (fun x -> x % 2 = 0)
