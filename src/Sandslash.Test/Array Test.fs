@@ -79,30 +79,30 @@ type ``Array Test`` (Console: ITestOutputHelper) =
   [<Fact>]
   member _.contains()=
     let empty = [||]
-    let actual = empty |> Sandslash.Array.contains 1
+    let actual = empty |> Sandslash.vArray.contains 1
     let expected = empty |> FSharp.Collections.Array.contains 1
     Console.WriteLine($"empty -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
     
-    let data = [| 1..10|]
-    let actual = data |> Sandslash.Array.contains 0
+    let data = [| 1..100|]
+    let actual = data |> Sandslash.vArray.contains 0
     let expected = data |> FSharp.Collections.Array.contains 0
     Console.WriteLine($"data(0) -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
    
-    let actual = data |> Sandslash.Array.contains 1
+    let actual = data |> Sandslash.vArray.contains 1
     let expected = data |> FSharp.Collections.Array.contains 1
     Console.WriteLine($"data(1) -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
-    let actual = data |> Sandslash.Array.contains 10
-    let expected = data |> FSharp.Collections.Array.contains 10
-    Console.WriteLine($"data(10) -> actual: {actual}, expected: {expected}")
+    let actual = data |> Sandslash.vArray.contains 100
+    let expected = data |> FSharp.Collections.Array.contains 100
+    Console.WriteLine($"data(100) -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
-    let actual = data |> Sandslash.Array.contains 11
-    let expected = data |> FSharp.Collections.Array.contains 11
-    Console.WriteLine($"data(11) -> actual: {actual}, expected: {expected}")
+    let actual = data |> Sandslash.vArray.contains 101
+    let expected = data |> FSharp.Collections.Array.contains 101
+    Console.WriteLine($"data(101) -> actual: {actual}, expected: {expected}")
     Assert.Equal(expected, actual)
 
   // [<Fact>]
