@@ -8,37 +8,32 @@ open System.Runtime.Intrinsics
 module vArray =
   open System.Runtime.Intrinsics.X86
   open Microsoft.FSharp.NativeInterop
-  
-  let inline throw_empty() = raise (System.InvalidOperationException "The source is empty.")
-  let inline debug_writel(str) = System.Diagnostics.Debug.WriteLine(str)
-
-  type vec128 = System.Runtime.Intrinsics.Vector128
-  type vec128<'T when 'T: unmanaged and 'T: struct and 'T: comparison and 'T: (new: unit -> 'T) and 'T:> System.ValueType> = System.Runtime.Intrinsics.Vector128<'T>
-  type vec256 = System.Runtime.Intrinsics.Vector256
-  type vec256<'T when 'T: unmanaged and 'T: struct and 'T: comparison and 'T: (new: unit -> 'T) and 'T:> System.ValueType> = System.Runtime.Intrinsics.Vector256<'T>
-  
-  let inline defaultof<'T> = Unchecked.defaultof<'T>
-  
+ 
   let inline checkNonNull argName arg =
     if isNull arg then nullArg argName
     
-  let inline public contains<^T when ^T: unmanaged and ^T: struct and ^T: comparison and ^T: (new: unit -> ^T) and ^T:> System.ValueType>
-    (value: ^T) (src: array<^T>) =
-      use p = fixed &src[0]
-      
-      let mutable current = NativePtr.toNativeInt p
-      let lastp = current + nativeint ((src.Length - Vector512<^T>.Count) * sizeof<^T>) 
-      let v = Vector512.Create value
-      
-      let rec loop () =
-        if current < lastp
-          then 
-            if Vector512.EqualsAny(Vector512.Load (NativePtr.ofNativeInt<^T> current), v)
-              then true
-              else current <- current + 64n; loop ()
-          else 
-            Vector512.EqualsAny(Vector512.Load (NativePtr.ofNativeInt<^T> lastp), v)
-      loop ()
+  let inline public contains<^T when ^T: unmanaged and ^T: struct and ^T: comparison and ^T: (new: unit -> ^T) and ^T :> System.ValueType> (value: ^T) (src: array<^T>) =
+  // let inline public contains<^T when ^T: unmanaged and ^T: comparison> (value: ^T) (src: array<^T>) =
+    if src.Length < System.Runtime.Intrinsics.Vector512<'T>.Count
+      then                  
+        let rec loop i =
+          (i < src.Length) && (src[i] = value || loop (i + 1))
+        loop 0
+      else
+        use p = fixed &src[0]
+        let mutable current = NativePtr.toNativeInt p
+        let lastp = current + nativeint ((src.Length - Vector512<^T>.Count) * sizeof<^T>) 
+        let v = Vector512.Create value
+        
+        let rec loop () =
+          if current < lastp
+            then 
+              if Vector512.EqualsAny(Vector512.Load (NativePtr.ofNativeInt<^T> current), v)
+                then true
+                else current <- current + 64n; loop ()
+            else 
+              Vector512.EqualsAny(Vector512.Load (NativePtr.ofNativeInt<^T> lastp), v)
+        loop ()
       // if not vec128.IsHardwareAccelerated || src.Length < vec128<^T>.Count
       //   // Not SIMD
       //   then
